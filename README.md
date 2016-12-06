@@ -47,7 +47,7 @@ Optionally map custom prop names to your component interface with the `mapPropNa
 gesture begins on image. Recommended only when scrolling is not an expected use case.
 
 `mapPropNames` : Function - Optionally provide a function that returns an object, which maps property names to
-your component interface. function receives one parameter with the signature `{ isActive, isTouchOutside, touchPosition }`.
+your component interface. Function receives one parameter with the signature `{ isActive, isTouchOutside, touchPosition }`.
 
 `onActivationChanged` : Function - Optionally provide a function that will be called when the component is active.
 

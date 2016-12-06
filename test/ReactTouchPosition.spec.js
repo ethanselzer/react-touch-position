@@ -1,29 +1,15 @@
 import React from 'react';
 import { noop, omit } from 'lodash';
-import {shallow, mount, render} from 'enzyme';
-import {expect, match} from 'chai';
+import { shallow, mount, render } from 'enzyme';
+import { expect, match } from 'chai';
+import sinon from 'sinon';
 
 import ReactTouchPosition from '../src/ReactTouchPosition';
 import GenericSpanComponent from './support/GenericSpanComponent';
 
 describe('ReactTouchPosition', () => {
     let touchObserver;
-    const event = {
-        currentTarget: {
-            getBoundingClientRect() {
-                return {
-                    top: 1,
-                    right: 2,
-                    bottom: 3,
-                    left: 4
-                }
-            }
-        },
-        touches: [{
-            clientX: 1,
-            clientY: 2
-        }]
-    };
+    const touchEvent = getTouchEvent();
 
     beforeEach(() => {
         touchObserver = shallow(<ReactTouchPosition/>);
@@ -64,7 +50,7 @@ describe('ReactTouchPosition', () => {
         const childComponent = renderedTree.find(GenericSpanComponent);
         const el = renderedTree.find('div');
 
-        el.simulate('touchStart', event);
+        el.simulate('touchStart', touchEvent);
 
         expect(childComponent.props()).to.deep.equal({
             isActive: true,
@@ -81,7 +67,7 @@ describe('ReactTouchPosition', () => {
         const childComponent = renderedTree.find('hr');
         const el = renderedTree.find('div');
 
-        el.simulate('touchStart', event);
+        el.simulate('touchStart', touchEvent);
 
         expect(childComponent.props()).to.be.empty;
     });
@@ -105,7 +91,7 @@ describe('ReactTouchPosition', () => {
                 onPositionChanged
             });
             const el = tree.find('div');
-            el.simulate('touchStart', event);
+            el.simulate('touchStart', touchEvent);
 
             function onPositionChanged(point) {
                 expect(point).to.deep.equal({
@@ -123,7 +109,7 @@ describe('ReactTouchPosition', () => {
                 onActivationChanged
             });
             const el = tree.find('div');
-            el.simulate('touchStart', event);
+            el.simulate('touchStart', touchEvent);
 
             function onActivationChanged({isActive}) {
                 expect(isActive).to.be.true;
@@ -131,13 +117,25 @@ describe('ReactTouchPosition', () => {
             }
         });
 
+        it('supports pressDuration', () => {
+            const clock = sinon.useFakeTimers();
+            const tree = getMountedComponentTree({ pressDuration: 250 });
+            const childComponent = tree.find(GenericSpanComponent);
+            childComponent.simulate('touchStart', touchEvent);
+            expect(childComponent.props().isActive).to.be.false;
+
+            clock.tick(251);
+
+            expect(childComponent.props().isActive).to.be.true;
+            clock.restore();
+        });
+
         it('supports shouldDecorateChildren, which suppresses decoration of child components when set false', () => {
             const tree = getMountedComponentTree({ shouldDecorateChildren: false });
             const childComponent = tree.find(GenericSpanComponent);
-            const el = tree.find('div');
-            el.simulate('touchStart', event);
+            childComponent.simulate('touchStart', touchEvent);
 
-            el.simulate('touchMove', event);
+            childComponent.simulate('touchMove', touchEvent);
 
             expect(childComponent.props()).to.be.empty;
         });
@@ -150,5 +148,24 @@ describe('ReactTouchPosition', () => {
                 <hr />
             </ReactTouchPosition>
         );
+    }
+
+    function getTouchEvent() {
+        return {
+            currentTarget: {
+                getBoundingClientRect() {
+                    return {
+                        top: 1,
+                        right: 2,
+                        bottom: 3,
+                        left: 4
+                    }
+                }
+            },
+            touches: [{
+                clientX: 1,
+                clientY: 2
+            }]
+        };
     }
 });
