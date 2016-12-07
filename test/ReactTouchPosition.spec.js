@@ -130,6 +130,19 @@ describe('ReactTouchPosition', () => {
             clock.restore();
         });
 
+        it('supports pressMoveThreshold', () => {
+            const clock = sinon.useFakeTimers();
+            const tree = getMountedComponentTree();
+            const childComponent = tree.find(GenericSpanComponent);
+            childComponent.simulate('touchStart', touchEvent);
+
+            childComponent.simulate('touchMove', getTouchEvent({ clientX: 10, clientY: 10 }));
+            clock.tick(501);
+
+            expect(childComponent.props().isActive).to.be.false
+            clock.restore();
+        });
+
         it('supports shouldDecorateChildren, which suppresses decoration of child components when set false', () => {
             const tree = getMountedComponentTree({ shouldDecorateChildren: false });
             const childComponent = tree.find(GenericSpanComponent);
@@ -150,7 +163,7 @@ describe('ReactTouchPosition', () => {
         );
     }
 
-    function getTouchEvent() {
+    function getTouchEvent({clientX = 1, clientY = 2} = {}) {
         return {
             currentTarget: {
                 getBoundingClientRect() {
@@ -163,8 +176,8 @@ describe('ReactTouchPosition', () => {
                 }
             },
             touches: [{
-                clientX: 1,
-                clientY: 2
+                clientX,
+                clientY
             }]
         };
     }
