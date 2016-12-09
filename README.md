@@ -6,6 +6,11 @@ Supports [long press and pan gestures](https://material.google.com/patterns/gest
 
 Safe for server rendering and cleans up after unmount on the client.
 
+## Demo
+The react-image-magnify package depends on react-touch-position for touch coordinate observation.
+Please have a look at the [react-image-magnify](https://www.npmjs.com/package/react-image-magnify)
+demo to see this package in action.
+
 ## Installation
 
 ```sh
@@ -52,7 +57,7 @@ your component interface. Function receives one parameter with the signature `{ 
 `onActivationChanged` : Function - Optionally provide a function that will be called when the component is active.
 
 `onPositionChanged` : Function - Optionally provide a function that will be called when touch position changes.
-Function will receive an object containing `isPositionOutside`, `x`, and `y` properties as a single parameter.
+Function will receive an object with the signature `{ isPositionOutside, x, y }`, as a single parameter.
 
 `pressDuration` : Number - Milliseconds delay before press gesture is activated. Defaults to 500.
 
