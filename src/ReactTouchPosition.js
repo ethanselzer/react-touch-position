@@ -201,7 +201,7 @@ export default React.createClass({
 
     getPassThroughProps() {
         const ownPropNames = Object.keys(this.constructor.propTypes);
-        return omit(this.props, ownPropNames)
+        return omit(this.props, ownPropNames);
     },
 
     render() {

@@ -19,7 +19,7 @@ describe('ReactTouchPosition', () => {
         expect(touchObserver.instance().constructor.displayName).to.equal('ReactTouchPosition');
     });
 
-    it('renders a single div html element', () => {
+    it('renders a single div HTML element', () => {
         expect(touchObserver.type()).to.equal('div');
     });
 
@@ -72,7 +72,7 @@ describe('ReactTouchPosition', () => {
         expect(childComponent.props()).to.be.empty;
     });
 
-    describe('Optional props API', () => {
+    describe('props API', () => {
         it('supports className', () => {
             const tree = getMountedComponentTree({ className: 'foo' });
 
@@ -85,7 +85,40 @@ describe('ReactTouchPosition', () => {
             expect(tree.find('div').css('width')).to.equal('100px');
         });
 
-        it('supports onTouchPositionChanged callback', (done) => {
+        it('supports isActivatedOnTouch', () => {
+            const tree = getMountedComponentTree({ isActivatedOnTouch: true });
+            const childComponent = tree.find(GenericSpanComponent);
+            expect(childComponent.props().isActive).to.be.false;
+
+            childComponent.simulate('touchStart', touchEvent);
+
+            expect(childComponent.props().isActive).to.be.true;
+        });
+
+        it('supports mapPropNames', () => {
+            function mapPropNames({ isActive, isTouchOutside, touchPosition }){
+                return {
+                    isOperative: isActive,
+                    isAlfresco: isTouchOutside,
+                    point: touchPosition
+                };
+            }
+            const tree = getMountedComponentTree({ mapPropNames });
+            const childComponent = tree.find(GenericSpanComponent);
+
+            childComponent.simulate('touchStart', touchEvent);
+
+            expect(childComponent.props()).to.deep.equal({
+                isOperative: false,
+                isAlfresco: false,
+                point: {
+                    x: 1,
+                    y: 2
+                }
+            });
+        });
+
+        it('supports onPositionChanged callback', (done) => {
             const tree = getMountedComponentTree({
                 isActivatedOnTouch: true,
                 onPositionChanged
@@ -143,7 +176,7 @@ describe('ReactTouchPosition', () => {
             clock.restore();
         });
 
-        it('supports shouldDecorateChildren, which suppresses decoration of child components when set false', () => {
+        it('supports shouldDecorateChildren', () => {
             const tree = getMountedComponentTree({ shouldDecorateChildren: false });
             const childComponent = tree.find(GenericSpanComponent);
             childComponent.simulate('touchStart', touchEvent);
