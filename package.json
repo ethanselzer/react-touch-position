@@ -1,6 +1,6 @@
 {
   "name": "react-touch-position",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component that decorates its children with touch coordinates, plotted relative to itself.",
   "repository": {
     "type": "git",
