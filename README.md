@@ -11,6 +11,10 @@ The react-image-magnify package depends on react-touch-position for touch coordi
 Please have a look at the [react-image-magnify](https://www.npmjs.com/package/react-image-magnify)
 demo to see this package in action.
 
+## Related Project
+For mouse position tracking, please consider [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).
+It has a similar architecture and interface to this project.
+
 ## Installation
 
 ```sh
@@ -65,10 +69,6 @@ Function will receive an object with the signature `{ isPositionOutside, x, y }`
 
 `shouldDecorateChildren` : Boolean - Defaults to true. Optionally suppress `touchPosition` decoration of child components by
 setting this prop false.
-
-## Companion Project
-For mouse position tracking, see [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).
-It has a similar architecture and interface.
 
 ## Support
 
