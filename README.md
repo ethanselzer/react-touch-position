@@ -6,6 +6,11 @@ Supports [long press and pan gestures](https://material.google.com/patterns/gest
 
 Safe for server rendering and cleans up after unmount on the client.
 
+## Status
+[![CircleCI](https://circleci.com/gh/ethanselzer/react-touch-position.svg?style=svg)](https://circleci.com/gh/ethanselzer/react-touch-position)
+
+[![npm](https://nodei.co/npm/react-touch-position.svg?downloads=true)](https://nodei.co/npm/react-touch-position/)
+
 ## Demo
 The react-image-magnify package depends on react-touch-position for touch coordinate observation.
 Please have a look at the [react-image-magnify](https://www.npmjs.com/package/react-image-magnify)
