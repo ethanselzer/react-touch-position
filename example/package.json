@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "http://ethanselzer.github.io/react-touch-position",
   "devDependencies": {
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.9.3"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
