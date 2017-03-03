@@ -4344,9 +4344,9 @@ react-syntax-highlighter@^4.0.1:
     highlight.js "~9.8.0"
     lowlight "^1.5.0"
 
-react-touch-position@2.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-touch-position/-/react-touch-position-2.0.0.tgz#5b48b9fc99e8ca91da41adb7ffcfa037b2f3bf52"
+react-touch-position@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-touch-position/-/react-touch-position-2.0.1.tgz#3c175480d20fa7f988cc4355eb585a3901eaafc9"
   dependencies:
     babel-runtime "^6.6.1"
     lodash.omit "^4.5.0"

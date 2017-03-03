@@ -10,7 +10,7 @@
     "highlightjs": "^9.8.0",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
-    "react-touch-position": "2.0",
+    "react-touch-position": "2.0.1",
     "react-dom": "^15.4.2",
     "react-helmet": "^4.0.0",
     "react-image-magnify": "^1.6.0",
