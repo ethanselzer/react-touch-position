@@ -1,5 +1,4 @@
 # react-touch-position
-
 React Touch Position is a primitive component for composing UI features that require notification of
 touch position status.
 
@@ -17,28 +16,17 @@ It is safe for server rendering and cleans up after unmount on the client.
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Demo
-The react-image-magnify package depends on react-touch-position for touch coordinate observation.
-Please have a look at the [react-image-magnify](https://www.npmjs.com/package/react-image-magnify)
-demo to see this package in action.
+Please see the [react-touch-position demo site](https://ethanselzer.github.io/react-touch-position).
 
 ## Related Project
-For mouse position tracking, please consider [react-touch-position](https://www.npmjs.com/package/react-touch-position).
-
-For hover monitoring, please consider [react-hover-observer](https://www.npmjs.com/package/react-hover-observer).
-
-Both projects have a similar interface.
+For mouse position tracking, please consider [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).
 
 ## Installation
-
 ```sh
 npm install --save react-touch-position
 ```
 
 ## Usage
-
-Intended as a primitive for composing features that require notification of
-touch position coordinates.
-
 ```JSX
 import ReactTouchPosition from 'react-touch-position';
 ...
@@ -76,9 +64,6 @@ gesture begins on target area. Recommended only when scrolling is not an expecte
 `mapChildProps` : Function - Optionally model child component props to your custom shape.
 Function receives one parameter with the signature `{ isActive, isPositionOutside, touchPosition }`,
 and returns an object that is compatible with the props interface of your components.
-
-Function -  Function receives an object as input and
-returns an object that will decorate child components.
 
 `onActivationChanged` : Function - Optionally provide a function that will be called when the component is active.
 Function receives one parameter with the signature `{ isActive }`
