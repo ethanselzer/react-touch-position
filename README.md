@@ -1,15 +1,20 @@
 # react-touch-position
 
-A React component that decorates its children with touch coordinates, plotted relative to itself.
+React Touch Position is a primitive component for composing UI features that require notification of
+touch position status.
 
-Supports [long press and pan gestures](https://material.google.com/patterns/gestures.html).
+It plots touch coordinates relative to itself and re-renders child components with new touch
+position props when touch position changes.
 
-Safe for server rendering and cleans up after unmount on the client.
+React Touch Position Supports [long press and pan gestures](https://material.google.com/patterns/gestures.html).
+
+It is safe for server rendering and cleans up after unmount on the client.
 
 ## Status
-[![CircleCI](https://circleci.com/gh/ethanselzer/react-touch-position.svg?style=svg)](https://circleci.com/gh/ethanselzer/react-touch-position)
-
-[![npm](https://nodei.co/npm/react-touch-position.svg?downloads=true)](https://nodei.co/npm/react-touch-position/)
+[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-touch-position.svg)](https://circleci.com/gh/ethanselzer/react-touch-position)
+[![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-touch-position/badge.svg?branch=V2.0)](https://coveralls.io/github/ethanselzer/react-touch-position?branch=V2.0)
+[![npm](https://img.shields.io/npm/v/react-touch-position.svg)](https://www.npmjs.com/package/react-touch-position)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Demo
 The react-image-magnify package depends on react-touch-position for touch coordinate observation.
@@ -17,8 +22,11 @@ Please have a look at the [react-image-magnify](https://www.npmjs.com/package/re
 demo to see this package in action.
 
 ## Related Project
-For mouse position tracking, please consider [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).
-It has a similar architecture and interface to this project.
+For mouse position tracking, please consider [react-touch-position](https://www.npmjs.com/package/react-touch-position).
+
+For hover monitoring, please consider [react-hover-observer](https://www.npmjs.com/package/react-hover-observer).
+
+Both projects have a similar interface.
 
 ## Installation
 
@@ -32,6 +40,8 @@ Intended as a primitive for composing features that require notification of
 touch position coordinates.
 
 ```JSX
+import ReactTouchPosition from 'react-touch-position';
+...
 <ReactTouchPosition>
     <YourComponentOne/>
     <YourComponentTwo/>
@@ -40,37 +50,45 @@ touch position coordinates.
 ReactTouchPosition wraps its children in a div, which touch position
 is plotted relative to.
 
-Each child component will receive a prop named `touchPosition`, which
-has the following structure.
+Each child component will receive the following props:
 
 ```JavaScript
 {
-    x: Number,
-    y: Number
+    isActive: Boolean,
+    isPositionOutside: Boolean,
+    touchPosition: {
+        x: Number,
+        y: Number
+    }
 }
 ```
-Optionally map custom prop names to your component interface with the `mapPropNames` feature.
+This structure may be customized by implementing `mapChildProps` API feature.
 
-### props API
+### Props API
 
 `className` : String - Optionally provide a CSS class to be applied to the div rendered by react-touch-position.
 
-`style` : String - Optionally provide a style object to be applied to the div rendered by react-touch-position.
+`style` : Object - Optionally provide a style object to be applied to the div rendered by react-touch-position.
 
 `isActivatedOnTouch` : Boolean - Optionally activate immediately on touch. Scrolling may not be possible when scroll
-gesture begins on image. Recommended only when scrolling is not an expected use case.
+gesture begins on target area. Recommended only when scrolling is not an expected use case.
 
-`mapPropNames` : Function - Optionally provide a function that returns an object, which maps property names to
-your component interface. Function receives one parameter with the signature `{ isActive, isTouchOutside, touchPosition }`.
+`mapChildProps` : Function - Optionally model child component props to your custom shape.
+Function receives one parameter with the signature `{ isActive, isPositionOutside, touchPosition }`,
+and returns an object that is compatible with the props interface of your components.
+
+Function -  Function receives an object as input and
+returns an object that will decorate child components.
 
 `onActivationChanged` : Function - Optionally provide a function that will be called when the component is active.
+Function receives one parameter with the signature `{ isActive }`
 
 `onPositionChanged` : Function - Optionally provide a function that will be called when touch position changes.
-Function will receive an object with the signature `{ isPositionOutside, x, y }`, as a single parameter.
+Function will receive an object with the signature `{ isPositionOutside, touchPosition: { x, y } }`, as a single parameter.
 
 `pressDuration` : Number - Milliseconds delay before press gesture is activated. Defaults to 500.
 
-`pressMoveThreshold`: Number - Amount of movement allowed during press event. Defaults to 5.
+`pressMoveThreshold`: Number - Amount of movement allowed during press event detection. Defaults to 5.
 
 `shouldDecorateChildren` : Boolean - Defaults to true. Optionally suppress `touchPosition` decoration of child components by
 setting this prop false.
@@ -85,13 +103,13 @@ Please [open an issue](https://github.com/ethanselzer/react-touch-position/issue
 git clone https://github.com/ethanselzer/react-touch-position.git
 cd react-touch-position
 npm install
-```
-See available commands:
-```ssh
-npm run
+npm run #print available commands
 ```
 
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
 add commits, and [open a pull request](https://github.com/ethanselzer/react-touch-position/compare/).
+
+## License
+MIT

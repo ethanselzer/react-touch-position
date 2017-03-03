@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.9.0/styles/solarized-light.min.css">
+    <script src="//cdn.jsdelivr.net/highlight.js/9.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>On Touch Position Changed | Code Example | React Touch Position</title>
+  </head>
+  <body>
+<pre>
+<code class="JavaScript">
+import React from 'react';
+import ReactTouchPosition from 'react-touch-position';
+
+import TouchPositionLabel from './TouchPositionLabel';
+import InstructionsLabel from './InstructionsLabel';
+
+export default class extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            touchPosition: {
+                x: 0,
+                y: 0,
+            },
+            isPositionOutside: true
+        }
+    }
+
+    render() {
+        return (
+            &lt;div className="example"&gt;
+                &lt;ReactTouchPosition  {...{
+                    className: 'example',
+                    onPositionChanged: ({ isPositionOutside, touchPosition }) =&gt; {
+                        this.setState({
+                            touchPosition,
+                            isPositionOutside
+                        });
+                    }
+                }}&gt;
+                    &lt;InstructionsLabel /&gt;
+                &lt;/ReactTouchPosition&gt;
+
+                &lt;TouchPositionLabel {...this.state} /&gt;
+
+            &lt;/div&gt;
+        );
+    }
+}
+</code>
+</pre>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+
+  </body>
+</html>

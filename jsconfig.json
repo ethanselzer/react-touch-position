@@ -8,9 +8,12 @@
 	},
 	"exclude": [
 		"node_modules",
-		"bower_components",
-		"jspm_packages",
-		"tmp",
-		"temp"
+        "example/node_modules",
+        "coverage",
+        "dist",
+        "example/build",
+        ".git",
+        "**/.DS_Store",
+        "scripts"
 	]
 }

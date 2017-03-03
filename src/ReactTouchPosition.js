@@ -3,8 +3,9 @@ import React, {
     cloneElement,
     PropTypes
 } from 'react';
-import noop from 'lodash.noop';
 import omit from 'lodash.omit';
+
+import addEventListener from './utils/addEventListener';
 
 export default React.createClass({
 
@@ -13,7 +14,7 @@ export default React.createClass({
     getInitialState() {
         return {
             isActive: false,
-            isTouchOutside: false,
+            isPositionOutside: true,
             touchPosition: {
                 x: 0,
                 y: 0
@@ -25,7 +26,7 @@ export default React.createClass({
         children: PropTypes.any,
         className: PropTypes.string,
         isActivatedOnTouch: PropTypes.bool,
-        mapPropNames: PropTypes.func,
+        mapChildProps: PropTypes.func,
         onActivationChanged: PropTypes.func,
         onPositionChanged: PropTypes.func,
         pressDuration: PropTypes.number,
@@ -35,15 +36,11 @@ export default React.createClass({
     },
 
     getDefaultProps() {
+        const noop = () => {};
+
         return {
             isActivatedOnTouch: false,
-            mapPropNames: ({ isActive, isTouchOutside, touchPosition }) => {
-                return {
-                    isActive,
-                    isTouchOutside,
-                    touchPosition
-                };
-            },
+            mapChildProps: props => props,
             onActivationChanged: noop,
             onPositionChanged: noop,
             pressDuration: 500,
@@ -53,8 +50,11 @@ export default React.createClass({
     },
 
     onTouchStart(e) {
+        const touch0 = e.touches[0];
+        const viewportRelativePosition = this.getViewportRelativeTouchPosition(touch0);
+
         this.elementOffsetRect = this.getViewportRelativeElementRect(e.currentTarget);
-        this.setPosition(e);
+        this.setPosition(viewportRelativePosition);
 
         if (this.props.isActivatedOnTouch) {
             e.preventDefault();
@@ -68,36 +68,37 @@ export default React.createClass({
             return;
         }
 
-        this.initPressEventCriteria(e.touches[0]);
+        this.initPressEventCriteria(viewportRelativePosition);
 
         this.setPressEventTimer()
     },
 
     onTouchMove(e) {
-        this.setPressEventCriteria(e.touches[0]);
+        const touch0 = e.touches[0];
+        const viewportRelativePosition = this.getViewportRelativeTouchPosition(touch0);
 
         if (!this.state.isActive) {
+            this.setPressEventCriteria(viewportRelativePosition);
             return;
         }
 
-        this.setPosition(e);
+        this.setPosition(viewportRelativePosition);
 
         e.preventDefault();
     },
 
     unsetIsActive() {
-        this.clearTimers();
+        this.clearPressDurationTimer();
 
         this.setState({
             isActive: false,
-            isTouchOutside: false
+            isPositionOutside: true
         });
 
         this.props.onActivationChanged({ isActive: false });
     },
 
-    setPosition(e) {
-        const viewportRelativeTouchPosition = this.getViewportRelativeTouchPosition(e);
+    setPosition(viewportRelativeTouchPosition) {
         const elementOffsetRect = this.elementOffsetRect;
         const touchPosition = this.getElementRelativeTouchPosition(viewportRelativeTouchPosition, elementOffsetRect);
         const isPositionOutside = this.getIsPositionOutside(viewportRelativeTouchPosition, elementOffsetRect);
@@ -107,30 +108,30 @@ export default React.createClass({
             isPositionOutside
         });
 
-        this.props.onPositionChanged(Object.assign({ isPositionOutside }, touchPosition));
+        this.props.onPositionChanged({ isPositionOutside, touchPosition });
     },
 
     setPressEventTimer() {
+        const {
+            onActivationChanged,
+            pressDuration,
+            pressMoveThreshold
+        } = this.props;
+
         this.pressDurationTimerId = setTimeout(() => {
-            if (Math.abs(this.currentElTop - this.initialElTop) < this.props.pressMoveThreshold) {
+            if (Math.abs(this.currentElTop - this.initialElTop) < pressMoveThreshold) {
                 this.setState({ isActive: true });
-                this.props.onActivationChanged({ isActive: true });
+                onActivationChanged({ isActive: true });
             }
-        }, this.props.pressDuration);
+        }, pressDuration);
     },
 
-    setPressEventCriteria(touch) {
-        if (!this.props.isActivatedOnTouch) {
-            if (!this.state.isActive) {
-                this.currentElTop = touch.clientY;
-            } else {
-                this.initialElTop = touch.clientY;
-            }
-        }
+    setPressEventCriteria(position) {
+        this.currentElTop = position.y;
     },
 
-    initPressEventCriteria(touch) {
-        const top = touch.clientY;
+    initPressEventCriteria(position) {
+        const top = position.y
         this.initialElTop = top;
         this.currentElTop = top;
     },
@@ -147,6 +148,7 @@ export default React.createClass({
             bottom: offsetBottom,
             left: offsetLeft
         } = elementOffsetRect;
+
         return (
             viewportRelativeTouchX < offsetLeft ||
             viewportRelativeTouchX > offsetRight ||
@@ -155,8 +157,7 @@ export default React.createClass({
         );
     },
 
-    getViewportRelativeTouchPosition(event) {
-        const touch = event.touches[0];
+    getViewportRelativeTouchPosition(touch) {
         return {
             x: touch.clientX,
             y: touch.clientY
@@ -191,12 +192,34 @@ export default React.createClass({
         });
     },
 
-    clearTimers() {
+    clearPressDurationTimer() {
         clearTimeout(this.pressDurationTimerId);
     },
 
+    eventListeners: [],
+
+    addEventListeners() {
+        this.eventListeners.push(
+            addEventListener(this.el, 'touchstart', this.onTouchStart, { passive: false }),
+            addEventListener(this.el, 'touchmove', this.onTouchMove, { passive: false }),
+            addEventListener(this.el, 'touchend', this.unsetIsActive, { passive: true }),
+            addEventListener(this.el, 'touchcancel', this.unsetIsActive, { passive: true })
+        );
+    },
+
+    removeEventListeners() {
+        while (this.eventListeners.length) {
+            this.eventListeners.pop().removeEventListener();
+        }
+    },
+
+    componentDidMount() {
+        this.addEventListeners();
+    },
+
     componentWillUnmount() {
-        this.clearTimers();
+        this.clearPressDurationTimer();
+        this.removeEventListeners();
     },
 
     getPassThroughProps() {
@@ -205,13 +228,13 @@ export default React.createClass({
     },
 
     render() {
-        const { children, className, mapPropNames, style } = this.props;
-        const { isActive, isTouchOutside, touchPosition } = this.state;
+        const { children, className, mapChildProps, style } = this.props;
+        const { isActive, isPositionOutside, touchPosition } = this.state;
         const props = Object.assign(
             {},
-            mapPropNames({
+            mapChildProps({
                 isActive,
-                isTouchOutside,
+                isPositionOutside,
                 touchPosition
             }),
             this.getPassThroughProps()
@@ -219,11 +242,8 @@ export default React.createClass({
 
         return (
             <div { ...{
-                onTouchStart: this.onTouchStart,
-                onTouchMove: this.onTouchMove,
-                onTouchEnd: this.unsetIsActive,
-                onTouchCancel: this.unsetIsActive,
                 className,
+                ref: (el) => this.el = el,
                 style: Object.assign({}, style, {
                     WebkitUserSelect: 'none'
                 })
