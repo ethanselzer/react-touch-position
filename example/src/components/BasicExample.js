@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTouchPosition from '../../../dist/ReactTouchPosition';
+import ReactTouchPosition from 'react-touch-position';
 
 import TouchPositionLabel from './TouchPositionLabel';
 import InstructionsLabel from './InstructionsLabel';

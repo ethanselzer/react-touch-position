@@ -30,7 +30,7 @@
   "homepage": "https://github.com/ethanselzer/react-touch-position#readme",
   "main": "dist/ReactTouchPosition.js",
   "files": [
-    "dist/ReactTouchPosition.js",
+    "dist",
     "LICENCE"
   ],
   "options": {
