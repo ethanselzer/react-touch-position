@@ -36,9 +36,9 @@ class App extends Component {
 
                             React Touch Position Supports the&nbsp;
                             <a href="https://material.google.com/patterns/gestures.html">
-                                Long-press drag
+                                Long-press
                             </a>
-                            &nbsp;gesture.<br />
+                            &nbsp;gesture and does not interfere with page or element scrolling.<br />
 
                             It is safe for server rendering and cleans up after unmount on the client.<br />
                         </p>
@@ -64,10 +64,19 @@ class App extends Component {
                         </Col>
                         <Clearfix visibleSmBlock />
                         <Col xs={12} sm={6} md={4} lg={3}>
-                            <Panel header="Use Cases" bsStyle="primary" style={{ height: '281px' }}>
+                            <Panel header="Use Case" bsStyle="primary" style={{ height: '281px' }}>
                                 <Nav bsStyle="pills" stacked>
                                     <NavItem href="#/image-magnify">
                                         React Image Magnify
+                                    </NavItem>
+                                </Nav>
+                            </Panel>
+                        </Col>
+                        <Col xs={12} sm={6} md={4} lg={3}>
+                            <Panel header="Playground" bsStyle="primary" style={{ height: '281px' }}>
+                                <Nav bsStyle="pills" stacked>
+                                    <NavItem href="http://codepen.io/ethanselzer/pen/KWzOgj">
+                                        React Touch Position Live Edit
                                     </NavItem>
                                 </Nav>
                             </Panel>

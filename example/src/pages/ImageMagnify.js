@@ -33,7 +33,7 @@ class  ImageMagnify extends Component {
                                 <ul className="summary__list">
                                     <li>
                                         The React Image Magnify package depends on React Touch Position
-                                        for cursor coordinates
+                                        for touch coordinates
                                     </li>
                                     <li>
                                         Hover over the image below to see React Touch Position in action

@@ -5,7 +5,8 @@ touch position status.
 It plots touch coordinates relative to itself and re-renders child components with new touch
 position props when touch position changes.
 
-React Touch Position Supports [long press and pan gestures](https://material.google.com/patterns/gestures.html).
+React Touch Position Supports the [long press gesture](https://material.google.com/patterns/gestures.html) and does
+not interfere with page or element scrolling.
 
 It is safe for server rendering and cleans up after unmount on the client.
 
@@ -17,6 +18,8 @@ It is safe for server rendering and cleans up after unmount on the client.
 
 ## Demo
 Please see the [react-touch-position demo site](https://ethanselzer.github.io/react-touch-position).
+
+Experiment with react-touch-position [live on CodePen](http://codepen.io/ethanselzer/pen/KWzOgj);
 
 ## Related Project
 For mouse position tracking, please consider [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).
@@ -82,6 +85,17 @@ setting this prop false.
 
 Please [open an issue](https://github.com/ethanselzer/react-touch-position/issues).
 
+## Example Project
+
+```ssh
+git clone https://github.com/ethanselzer/react-touch-position.git
+cd react-touch-position/example
+npm install
+npm start
+```
+
+If your default browser does not start automatically, open a new browser window and go to localhost:3000
+
 ## Development
 
 ```ssh
@@ -91,6 +105,16 @@ npm install
 npm run #print available commands
 ```
 
+The Example Project may be used in development of react-touch-position. To import ReactTouchPosition
+from your local project change any import of ReactTouchPosition, on files in the components folder, to:
+
+`import ReactTouchPosition from '../../../dist/ReactTouchPosition';`
+
+The command `npm run prepublsih` must be run from the root of the project each time you want
+your ReactTouchPosition changes to be reflected in the example.
+
+If you experience ReferenceError: Unknown plugin "'transform-es2015-modules-umd'" when running
+`prepublish` you may try running `npm run prepublish-cjs` instead.
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
