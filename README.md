@@ -19,7 +19,9 @@ It is safe for server rendering and cleans up after unmount on the client.
 ## Demo
 Please see the [react-touch-position demo site](https://ethanselzer.github.io/react-touch-position).
 
-Experiment with react-touch-position [live on CodePen](http://codepen.io/ethanselzer/pen/KWzOgj);
+Experiment with react-touch-position [live on CodePen](http://codepen.io/ethanselzer/pen/KWzOgj).
+
+<img src="https://raw.githubusercontent.com/ethanselzer/react-touch-position/master/images/qrcode.png" width="75" height="75" alt="Touch Demo"/>
 
 ## Related Project
 For mouse position tracking, please consider [react-cursor-position](https://www.npmjs.com/package/react-cursor-position).

@@ -22,7 +22,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Helmet title="Examples | React Touch Position" />
+                <Helmet title="React Touch Position" />
                 <Header {...this.props} />
                 <Jumbotron>
                     <Grid>
