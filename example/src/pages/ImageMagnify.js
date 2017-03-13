@@ -36,7 +36,10 @@ class  ImageMagnify extends Component {
                                         for touch coordinates
                                     </li>
                                     <li>
-                                        Hover over the image below to see React Touch Position in action
+                                       Press (long touch) image to magnify. Pan (drag) to traverse image.
+                                    </li>
+                                    <li>
+                                        Note the page can be scrolled when touch begins on image.
                                     </li>
                                 </ul>
                             </Col>
@@ -61,6 +64,7 @@ class  ImageMagnify extends Component {
                     <Row>
                         <Col sm={12}>
                             <ReactImageMagnifyTouch {...{
+                                style: {margin: '0 auto'},
                                 largeImage: {
                                     alt: 'Enlarged product image',
                                     src: watchImg,
@@ -74,6 +78,9 @@ class  ImageMagnify extends Component {
                                     height: 450
                                 }
                             }} />
+                            <div style={{height: '1000px', display: 'flex', alignItems: 'flex-end'}}>
+                                <div style={{margin: '0 auto'}}>Scroll Spacer</div>
+                            </div>
                         </Col>
                     </Row>
                 </Grid>

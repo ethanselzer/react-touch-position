@@ -1,6 +1,12 @@
 .logo {
     margin-top: -4px;
-    font: 25px Courier New, Courier, monospace;
+    font: 23px Courier New, Courier, monospace;
+}
+
+@media (min-width: 350px) {
+    .logo {
+        font-size: 25px;
+    }
 }
 
 h1, h2 {
@@ -18,7 +24,13 @@ p.summary {
 }
 
 .jumbotron {
-    padding: 48px 0 30px;
+    padding: 95px 0 30px;
+}
+
+@media (min-width: 404px) {
+    .jumbotron {
+        padding-top: 48px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
