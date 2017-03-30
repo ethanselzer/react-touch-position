@@ -1,6 +1,8 @@
 import React from 'react';
 import { MenuItem, Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
 
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
+
 import npmLogo from '../../images/npm-logo.png';
 import githubLogo from '../../images/github-logo.png';
 
@@ -49,6 +51,7 @@ class Navigation extends React.Component {
     render() {
         return (
             <Navbar inverse fixedTop>
+                <ScrollToTopOnMount />
                 <Navbar.Header>
                     <Navbar.Brand>
                         <a className="logo" href="#/">
