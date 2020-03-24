@@ -1,16 +1,16 @@
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', 'react', 'prop-types', 'lodash.omit', './utils/addEventListener'], factory);
+        define(['exports', 'react', 'prop-types', 'lodash.omit', './utils/addEventListener', 'create-react-class'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('react'), require('prop-types'), require('lodash.omit'), require('./utils/addEventListener'));
+        factory(exports, require('react'), require('prop-types'), require('lodash.omit'), require('./utils/addEventListener'), require('create-react-class'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.propTypes, global.lodash, global.addEventListener);
+        factory(mod.exports, global.react, global.propTypes, global.lodash, global.addEventListener, global.createReactClass);
         global.ReactTouchPosition = mod.exports;
     }
-})(this, function (exports, _react, _propTypes, _lodash, _addEventListener) {
+})(this, function (exports, _react, _propTypes, _lodash, _addEventListener, createReactClass) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
@@ -31,7 +31,7 @@
         };
     }
 
-    exports.default = _react2.default.createClass({
+    exports.default = createReactClass({
 
         displayName: 'ReactTouchPosition',
 
