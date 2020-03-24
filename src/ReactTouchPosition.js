@@ -1,8 +1,8 @@
 import React, {
     Children,
-    cloneElement,
-    PropTypes
+    cloneElement
 } from 'react';
+import PropTypes from 'prop-types'; // ES6
 import omit from 'lodash.omit';
 
 import addEventListener from './utils/addEventListener';
