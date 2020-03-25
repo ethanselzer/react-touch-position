@@ -1,10 +1,10 @@
 {
   "name": "react-touch-position",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A React component that decorates its children with touch coordinates, plotted relative to itself.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethanselzer/react-touch-position.git"
+    "url": "https://github.com/JiboStore/react-touch-position.git"
   },
   "keywords": [
     "react-touch",
@@ -25,7 +25,7 @@
   "author": "Ethan Selzer <ethanselzer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethanselzer/react-touch-position/issues"
+    "url": "https://github.com/JiboStore/react-touch-position/issues"
   },
   "homepage": "https://github.com/ethanselzer/react-touch-position#readme",
   "main": "dist/ReactTouchPosition.js",
@@ -79,11 +79,13 @@
     "sinon": "^1.17.6"
   },
   "peerDependencies": {
-    "react": "~0.14.8 || ^15.0.0",
-    "react-dom": "~0.14.8 || ^15.0.0"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   },
   "dependencies": {
     "babel-runtime": "^6.6.1",
-    "lodash.omit": "^4.5.0"
+    "create-react-class": "^15.6.3",
+    "lodash.omit": "^4.5.0",
+    "prop-types": "^15.7.2"
   }
 }
