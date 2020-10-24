@@ -2,13 +2,14 @@ import React, {
     Children,
     cloneElement
 } from 'react';
-import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import omit from 'lodash.omit';
 
 import addEventListener from './utils/addEventListener';
 
-export default createClass({
+var createReactClass = require('create-react-class');
+
+export default createReactClass({
 
     displayName: 'ReactTouchPosition',
 
