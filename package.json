@@ -1,10 +1,10 @@
 {
-  "name": "touch-position-react",
-  "version": "2.0.0",
-  "description": "Makes (https://github.com/ethanselzer/react-touch-position.git) compatible with react versions >v15.5, >v16.",
+  "name": "react-touch-position",
+  "version": "2.0.2",
+  "description": "A React component that decorates its children with touch coordinates, plotted relative to itself.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cranberrymuffin/react-touch-position"
+    "url": "https://github.com/ethanselzer/react-touch-position.git"
   },
   "keywords": [
     "react-touch",
