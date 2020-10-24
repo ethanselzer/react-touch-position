@@ -1,7 +1,7 @@
 {
   "name": "touch-position-react",
-  "version": "1.0.3",
-  "description": "Makes (https://github.com/ethanselzer/react-touch-position.git) compatible with react versions >v15.5.",
+  "version": "2.0.0",
+  "description": "Makes (https://github.com/ethanselzer/react-touch-position.git) compatible with react versions >v15.5, >v16.",
   "repository": {
     "type": "git",
     "url": "https://github.com/cranberrymuffin/react-touch-position"
